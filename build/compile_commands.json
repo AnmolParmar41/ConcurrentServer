@@ -1,0 +1,14 @@
+[
+{
+  "directory": "/home/anmol-parmar/Projects/ConcurrentServer/build",
+  "command": "/usr/bin/gcc  -I/home/anmol-parmar/Projects/ConcurrentServer/include -g -o CMakeFiles/utils.dir/lib/utils.c.o -c /home/anmol-parmar/Projects/ConcurrentServer/lib/utils.c",
+  "file": "/home/anmol-parmar/Projects/ConcurrentServer/lib/utils.c",
+  "output": "CMakeFiles/utils.dir/lib/utils.c.o"
+},
+{
+  "directory": "/home/anmol-parmar/Projects/ConcurrentServer/build",
+  "command": "/usr/bin/gcc  -I/home/anmol-parmar/Projects/ConcurrentServer/include -g -o CMakeFiles/uv-lib.dir/src/uv-lib.c.o -c /home/anmol-parmar/Projects/ConcurrentServer/src/uv-lib.c",
+  "file": "/home/anmol-parmar/Projects/ConcurrentServer/src/uv-lib.c",
+  "output": "CMakeFiles/uv-lib.dir/src/uv-lib.c.o"
+}
+]

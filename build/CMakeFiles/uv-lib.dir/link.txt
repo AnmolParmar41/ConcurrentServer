@@ -1,0 +1,1 @@
+/usr/bin/gcc -g "CMakeFiles/uv-lib.dir/src/uv-lib.c.o" -o uv-lib  -lpthread libutils.a -luv 
