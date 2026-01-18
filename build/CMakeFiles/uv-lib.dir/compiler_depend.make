@@ -167,6 +167,7 @@ CMakeFiles/uv-lib.dir/src/uv-lib.c.o: /home/anmol-parmar/Projects/ConcurrentServ
   /usr/include/x86_64-linux-gnu/sys/ucontext.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/limits.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdarg.h \
+  /usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stddef.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/stdint.h \
   /usr/lib/gcc/x86_64-linux-gnu/13/include/syslimits.h
@@ -393,6 +394,8 @@ CMakeFiles/uv-lib.dir/src/uv-lib.c.o: /home/anmol-parmar/Projects/ConcurrentServ
 /usr/include/netinet/tcp.h:
 
 /usr/include/x86_64-linux-gnu/bits/sigstksz.h:
+
+/usr/lib/gcc/x86_64-linux-gnu/13/include/stdbool.h:
 
 /usr/include/netinet/in.h:
 

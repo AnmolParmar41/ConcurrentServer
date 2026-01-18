@@ -35,12 +35,10 @@ typedef struct
 	uv_stream_t *client;
 	ssize_t nread;
 	char *buf;
-	bool is_done = false;
+	bool is_done;
 
 } read_cb_args;
 
-uv_buf_t global_uv_buff[100];
-int counter = 0;
 void on_client_closed(uv_handle_t *handle)
 {
 	uv_tcp_t *client = (uv_tcp_t *)handle;
@@ -51,7 +49,6 @@ void on_client_closed(uv_handle_t *handle)
 		free(client->data);
 	}
 	free(client);
-	client == NULL;	
 }
 
 void on_alloc_buffer(uv_handle_t *handle, size_t suggested_size, uv_buf_t *buff)
@@ -80,13 +77,18 @@ void after_work_write(uv_work_t *work_req, int status)
 		printf("uv_work_cb status: %s", uv_strerror(status));
 		exit(EXIT_FAILURE);
 	}
-	
-	peer_status_t *peer_state = (peer_status_t *)work_req->data;
-	uv_tcp_t *client = peer_state->client;
+	read_cb_args* args = (read_cb_args*)work_req->data;
+	uv_tcp_t *client = args->client;
+	peer_status_t* peer_state = client->data;
 
-	if(!client) {
-		return;
-	}
+	if (args->is_done) {
+        if (!uv_is_closing((uv_handle_t*)client)) {
+            uv_close((uv_handle_t *)client, on_client_closed);
+        }
+        free(args);
+        free(work_req);
+        return;
+    }
 
 	if (peer_state->sendbuff_end > 0)
 	{
@@ -101,6 +103,9 @@ void after_work_write(uv_work_t *work_req, int status)
 			exit(EXIT_FAILURE);
 		}
 	}
+
+	free(args);
+	free(work_req);
 }
 
 void on_peer_recv(uv_work_t *work_req)
@@ -110,14 +115,16 @@ void on_peer_recv(uv_work_t *work_req)
 	uv_stream_t *client = args->client;
 	ssize_t nread = args->nread;
 	const char *buff = args->buf;
+	args->is_done = false;
 
 	if (nread < 0)
 	{
 		if (nread != UV_EOF)
 		{
 			printf("Read error: %s", uv_strerror(nread));
-		}
-		uv_close((uv_handle_t *)client, on_client_closed);
+		} 
+		args->is_done = true;
+		return;
 	}
 	else if (nread == 0)
 	{
@@ -157,11 +164,9 @@ void on_peer_recv(uv_work_t *work_req)
 				break;
 			}
 		}
-		work_req->data = peer_state;
 	}
 
 	free(buff);
-	free(args);
 }
 
 // this function is wrapper for on_peer_recv so that it could be done in a seprate thread;
